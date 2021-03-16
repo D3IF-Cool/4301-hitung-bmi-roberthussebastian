@@ -134,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider"
             tools:text="BMI: 24,09" />
         <TextView
-            android:id="@+id/kategori"
+            android:id="@+id/kategoriBmi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -156,7 +156,7 @@
             app:layout_constraintEnd_toStartOf="@+id/shareButton"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/kategori"/>
+            app:layout_constraintTop_toBottomOf="@+id/kategoriBmi"/>
 
         <Button
             android:id="@+id/shareButton"

@@ -68,7 +68,7 @@ class HitungFragment : Fragment() {
         val bmi = berat.toFloat() / (tinggiCm * tinggiCm)
         val kategori = getKategori(bmi, isMale)
         binding.hasilBmi.text = getString(R.string.bmi_x, bmi)
-        binding.kategori.text = getString(R.string.kategori_x, kategori)
+        binding.kategoriBmi.text = getString(R.string.kategori_x, kategori)
         binding.buttonGroup.visibility = View.VISIBLE
     }
 
@@ -83,7 +83,7 @@ class HitungFragment : Fragment() {
             binding.tinggiEditText.text,
             gender,
             binding.hasilBmi.text,
-            binding.kategori.text
+            binding.kategoriBmi.text
         )
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain").putExtra(Intent.EXTRA_TEXT, message)
