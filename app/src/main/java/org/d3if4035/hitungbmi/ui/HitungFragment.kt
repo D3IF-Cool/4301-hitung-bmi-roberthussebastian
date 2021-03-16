@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import org.d3if4035.hitungbmi.R
 import org.d3if4035.hitungbmi.data.KategoriBmi
 import org.d3if4035.hitungbmi.databinding.FragmentHitungBinding
@@ -25,7 +26,23 @@ class HitungFragment : Fragment() {
                 HitungFragmentDirections.actionHitungFragmentToSaranFragment(kategoriBmi)
             )
         }
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.option_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_about) {
+            findNavController().navigate(
+                R.id.action_hitungFragment_to_aboutFragment
+            )
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun hitungBmi() {
