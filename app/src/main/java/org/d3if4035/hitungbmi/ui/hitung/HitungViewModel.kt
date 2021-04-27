@@ -1,15 +1,17 @@
 package org.d3if4035.hitungbmi.ui.hitung
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.*
 import org.d3if4035.hitungbmi.data.HasilBmi
 import org.d3if4035.hitungbmi.data.KategoriBmi
+import org.d3if4035.hitungbmi.db.BmiDao
+import org.d3if4035.hitungbmi.db.BmiEntity
 
-class HitungViewModel : ViewModel() {
+class HitungViewModel(private val db: BmiDao) : ViewModel() {
 
     private val hasilBmi = MutableLiveData<HasilBmi?>()
     private val navigasi = MutableLiveData<KategoriBmi?>()
+    val data = db.getLastBmi()
 
     fun hitungBmi(berat: String, tinggi: String, isMale: Boolean) {
         val tinggiCm = tinggi.toFloat() / 100
@@ -28,6 +30,16 @@ class HitungViewModel : ViewModel() {
             }
         }
         hasilBmi.value = HasilBmi(bmi, kategori)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val dataBmi = BmiEntity(
+                    berat = berat.toFloat(),
+                    tinggi = tinggi.toFloat(),
+                    isMale = isMale
+                )
+                db.insert(dataBmi)
+            }
+        }
     }
 
     fun mulaiNavigasi() {
